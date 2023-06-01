@@ -39,13 +39,13 @@ class MCP():
     class for interacting with device.
     """
 
-    def __init__(self, address=0x20, gpioScl=5, gpioSda=4):
+    def __init__(self, i2c, address=0x20):
         """Initialize MCP230xx at specified I2C address and bus number.  If bus
         is not specified it will default to the appropriate platform detected bus.
         """
         self.address = address
-        self.i2c = I2C(scl=Pin(gpioScl),sda=Pin(gpioSda))
-        # Assume starting in ICON.BANK = 0 mode (sequential access).
+        self.i2c = i2c
+         # Assume starting in ICON.BANK = 0 mode (sequential access).
         # Compute how many bytes are needed to store count of GPIO.
         self.gpio_bytes = self.NUM_GPIO//8
         # Buffer register values so they can be changed without reading.
